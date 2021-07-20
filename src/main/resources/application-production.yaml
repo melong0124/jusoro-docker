@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://devdb.cesco.biz:11433;DatabaseName=CESCOEIS;loginTimeout=5;
+    username: 11059
+    password: 1624518a
+
+---
+
+logging:
+  level:
+    root: warn
+    com.cesco.api.cesnetapi: info

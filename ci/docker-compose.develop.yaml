@@ -1,0 +1,46 @@
+version: '3.5'
+
+services:
+  prsinflogrvsrv:
+    image: cesdocker.cesco.biz:12000/develop/api/cesnet:latest
+    hostname: "{{.Service.Name}}-{{.Task.Slot}}"
+    networks: 
+      - backend
+      - proxy
+    ports:
+      - "19005:8080"
+    environment:
+      - PROFILE=develop
+      - DBHOST=devdb.cesco.biz
+      - DBPORT=11433
+      - DBUSERNAME=11059
+      - DBPASSWORD=11059
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 1G
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.services.cesnetapi.loadbalancer.server.port=8080"
+        - "traefik.http.routers.cesnetapi.rule=Host(`cesnet3.cesco.biz`) && PathPrefix(`/api/cesnet/`)"
+        - "traefik.http.routers.cesnetapi.service=cesnetapi@docker"
+        - "traefik.http.middlewares.stripprefix-cesnetapi.stripprefix.prefixes=/api/pi"
+        - "traefik.http.routers.cesnetapi.middlewares=stripprefix-cesnetapi@docker"
+  
+networks:
+  backend:
+    external: true
+  proxy:
+    external: true

@@ -1,0 +1,60 @@
+version: '3.5'
+
+services:
+  prsinflogrvsrv:
+    image: cesdocker.cesco.biz:12000/api/cesnet:latest
+    hostname: "{{.Service.Name}}-{{.Task.Slot}}"
+    networks: 
+      - backend
+      - proxy
+    ports:
+      - "19002:8080"
+    environment:
+      #- SERVICENAME="{{.Service.Name}}-{{.Task.Slot}}"
+      #- ADMINURL=http://cesnet3.cesco.biz:18001
+      - PROFILE=production
+      - RABBITMQURL=rabbitmq
+      - RABBITMQPORT=5672
+      - DBHOST=192.168.50.115
+      - DBPORT=3306
+      - RABBITMQUSERNAME_FILE=/run/secrets/rabbitmq-pi-consumer-username
+      - RABBITMQPASSWORD_FILE=/run/secrets/rabbitmq-pi-consumer-pwd
+      - DBUSERNAME_FILE=/run/secrets/db-pi-username
+      - DBPASSWORD_FILE=/run/secrets/db-pi-pwd
+    secrets:
+      - rabbitmq-pi-consumer-pwd
+      - rabbitmq-pi-consumer-username
+      - db-pi-username
+      - db-pi-pwd
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+  
+networks:
+  backend:
+    external: true
+  proxy:
+    external: true
+
+secrets:
+  rabbitmq-pi-consumer-pwd:
+    external: true
+  rabbitmq-pi-consumer-username:
+    external: true
+  db-pi-username:
+    external: true
+  db-pi-pwd:
+    external: true

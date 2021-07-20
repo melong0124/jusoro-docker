@@ -1,0 +1,29 @@
+#spring 기본설정
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://devdb.cesco.biz:11433;DatabaseName=CESCOEIS;
+    username: 11059
+    password: 11059
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 30000
+      poolName: maindb-pool
+      maxLifetime: 2000000
+      connectionTimeout: 30000
+
+---
+
+#mybatis 설정
+mybatis:
+  mapper-locations: classpath*:mappers/*/*.xml
+
+---
+
+#logging 설정
+logging:
+  level:
+    root: warn
+    com.cesco.api.cesnetapi: info
+    com.cesco.api.cesnetapi.ec: debug

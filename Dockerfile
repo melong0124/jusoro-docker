@@ -38,6 +38,8 @@ RUN sed -i 's/127.0.0.1/-.-.-.-/' ${APP_PATH}/server/etc/jetty.xml
 # port 오픈
 EXPOSE 8983
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+
 WORKDIR ${APP_BIN_PATH}
 
-CMD ["./startup.sh"]
+CMD ["bash", "/docker-entrypoint.sh"]

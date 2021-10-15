@@ -2,12 +2,13 @@ FROM openjdk:8-jdk-alpine
 
 LABEL maintainer="melong0124 <melong0124@me.com>"
 
-RUN apk update && apk --no-cache add bash
+RUN apk update && apk --no-cache add bash tzdata
 
 # 변수 설정
 ENV DW_FILE_NAME jusoro-2.0.0-linux64-internet.tar.gz
 ENV APP_PATH /app/jusoro
 ENV APP_BIN_PATH ${APP_PATH}/bin
+ENV TZ=Asia/Seoul
 
 # 폴더 생성
 RUN mkdir -p /tmp && mkdir -p /app

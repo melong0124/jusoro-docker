@@ -1,6 +1,6 @@
 FROM azul/zulu-openjdk-alpine:8
 
-LABEL maintainer="melong0124"
+LABEL maintainer="melong0124 <melong0124@me.com>"
 
 RUN apk update && apk upgrade
 RUN apk --no-cache add bash
@@ -24,12 +24,12 @@ RUN chmod -R 755 /app
 # /app/jusoro/server/logs : 로그
 # /app/jusoro/server/etc : jetty 옵션 설정파일들
 # /app/jusoro/server/resources : 로그 옵션 설정파일들
+VOLUME ["/app/datas", "/app/jusoro/server/logs"]
 
 # java 경로 변경
 RUN sed -i 's/..\/..\/jdk1.8.0_102_linux64/\/usr\/lib\/jvm\/zulu8-ca/' ${APP_BIN_PATH}/startup.sh
 
 # solr root 실행 관련 로직 추가
-# -p 옵션 제거
 RUN sed -i 's/start -p 8983 -m 4g/start -f -p 8983 -m 4g -force/' ${APP_BIN_PATH}/startup.sh
 
 # 관리자 ip 설정

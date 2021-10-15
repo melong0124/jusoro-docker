@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:8-jdk-alpine
 
 LABEL maintainer="melong0124 <melong0124@me.com>"
 

@@ -24,7 +24,7 @@ RUN chmod -R 755 /app
 # /app/jusoro/server/logs : 로그
 # /app/jusoro/server/etc : jetty 옵션 설정파일들
 # /app/jusoro/server/resources : 로그 옵션 설정파일들
-VOLUME ["/app/datas", "/app/jusoro/server/logs"]
+VOLUME ["/app/datas"]
 
 # java 경로 변경
 RUN sed -i 's/..\/..\/jdk1.8.0_102_linux64/\/usr\/lib\/jvm\/zulu8-ca/' ${APP_BIN_PATH}/startup.sh

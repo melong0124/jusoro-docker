@@ -1,0 +1,7 @@
+version: '3.4'
+
+services:
+  webmvc:
+    build: .
+    ports:
+      - 18983:8983

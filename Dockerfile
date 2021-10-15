@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-alpine:8
+FROM openjdk:8-jre-alpine
 
 LABEL maintainer="melong0124 <melong0124@me.com>"
 
@@ -26,7 +26,7 @@ RUN wget -O \
 VOLUME ["/app/datas"]
 
 # java 경로 변경
-RUN sed -i 's/..\/..\/jdk1.8.0_102_linux64/\/usr\/lib\/jvm\/zulu8-ca/' ${APP_BIN_PATH}/startup.sh
+RUN sed -i 's/..\/..\/jdk1.8.0_102_linux64/\/usr\/lib\/jvm\/java-1.8-openjdk\/jre/' ${APP_BIN_PATH}/startup.sh
 
 # solr root 실행 관련 로직 추가
 RUN sed -i 's/start -p 8983 -m 4g/start -f -p 8983 -m 4g -force/' ${APP_BIN_PATH}/startup.sh

@@ -2,7 +2,7 @@
 
 ## 개요
 
-비공식 [주소검색솔루션](https://www.juso.go.kr/addrlink/jusoSearchSolutionIntroduce.do) Dockerized 입니다.
+비공식 [주소검색솔루션](https://business.juso.go.kr/addrlink/tchnlgySport/adresSearchSlutn.do) Dockerized 입니다.
 
 ## 사용법
 
